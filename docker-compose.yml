@@ -1,0 +1,27 @@
+version: '3'
+services:
+ myos:
+     image: mysql:5.7
+     volumes:
+       - "/var/lib/mysql"
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: redhat
+       MYSQL_USER: Saksham
+       MYSQL_PASSWORD: redhat
+       MYSQL_DATABASE: mydb
+ Wordpress:
+      image: wordpress
+      restart: always
+      depends_on:
+        -  myos
+      ports:
+        -  8081:80
+      environment:
+        WORDPRESS_DB_HOST: myos
+        WORDPRESS_DB_USER: Saksham
+        WORDPRESS_DB_PASSWORD: redhat
+        WORDPRESS_DB_NAME: mydb
+      volumes:
+        - "/var/www/html"
+
